@@ -26,31 +26,26 @@ public class BookManagementTest {
 
 
     @Test
-    public void showAllBooks(){
+    public void showAllBooksAvailable(){
         BookManagement bookManagement = new BookManagement();
-        List<Book> allBooks = bookManagement.getAllBooks();
+        List<Book> allBooks = bookManagement.getAllBooksAvailable();
         assertEquals(allBooksExpected, allBooks);
     }
 
     @Test
     public void successfulCheckout(){
         BookManagement bookManagement = new BookManagement();
-        Book book = new Book("Book", "Author", 2010);
-        book.setAvailable(true);
 
-        String status = bookManagement.checkoutBook(book);
+        String status = bookManagement.checkoutBook("Book one");
 
         assertEquals(status, "Thank you! Enjoy the book");
-        assertEquals(false, book.isAvailable());
     }
 
     @Test
     public void unsuccessfulCheckout(){
         BookManagement bookManagement = new BookManagement();
-        Book book = new Book("Book", "Author", 2010);
-        book.setAvailable(false);
 
-        String status = bookManagement.checkoutBook(book);
+        String status = bookManagement.checkoutBook("Book four");
 
         assertEquals(status, "That book is not available");
     }
@@ -68,8 +63,28 @@ public class BookManagementTest {
     public void unsuccessfulReturn(){
         BookManagement bookManagement = new BookManagement();
 
-        String message = bookManagement.returnBook("Buuk one");
+        String message = bookManagement.returnBook("Book");
 
         assertEquals(message, "That is not a valid book to return");
+    }
+
+    @Test
+    public void validateFindARightBook(){
+        BookManagement bookManagement = new BookManagement();
+        Book bookExpected = new Book("Book one", "Author one", 2010);
+
+        Book bookReturned = bookManagement.findBook(bookExpected.getName());
+
+        assertEquals(bookExpected, bookReturned);
+    }
+
+    @Test
+    public void validateFindAWrongBook(){
+        BookManagement bookManagement = new BookManagement();
+        Book bookExpected = new Book("Book", "Author", 2010);
+
+        Book bookReturned = bookManagement.findBook(bookExpected.getName());
+
+        assertEquals(null, bookReturned);
     }
 }
