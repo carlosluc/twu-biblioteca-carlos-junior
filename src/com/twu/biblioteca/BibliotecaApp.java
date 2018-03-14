@@ -65,12 +65,12 @@ public class BibliotecaApp {
     }
 
     private static void showAllAvailableBooks() {
-        List<Book> listAvailableBooks = bookManagement.getAllBooksAvailable();
+        List<Book> listAvailableBooks = bookManagement.getAllAvailableItens();
 
         System.out.println("Name\t\t|\tAuthor\t\t|\tYear Published\n");
 
         for (Book book : listAvailableBooks) {
-            String line = book.getName()+"\t\t"+book.getAuthor()+"\t\t"+book.getYearPublished();
+            String line = book.getName()+"\t\t"+book.getAuthor()+"\t\t"+book.getYear();
             System.out.println(line);
         }
     }
@@ -79,14 +79,14 @@ public class BibliotecaApp {
         System.out.println("Please, type the name of the book that you will check out:");
         String userInput = getUserInput();
 
-        System.out.println(bookManagement.checkoutBook(userInput));
+        System.out.println(bookManagement.checkOutItem(userInput));
     }
 
     private static void returnABook() {
         System.out.println("Please, type the name of the book that you will return:");
         String userInput = getUserInput();
 
-        System.out.println(bookManagement.returnBook(userInput));
+        System.out.println(bookManagement.returnItem(userInput));
     }
 
 

@@ -9,63 +9,58 @@ import static org.junit.Assert.assertEquals;
 
 public class BookManagementTest {
 
-    List<Book> allBooksExpected;
+    List<Item> allBooksExpected;
 
     @Before
     public void setup(){
-        allBooksExpected = new ArrayList();
+        allBooksExpected = new ArrayList<Item>();
 
-        Book book1 = new Book("Book one", "Author one", 2010);
-        Book book2 = new Book("Book two", "Author two", 2011);
-        Book book3 = new Book("Book three", "Author three", 2012);
-
-        allBooksExpected.add(book1);
-        allBooksExpected.add(book2);
-        allBooksExpected.add(book3);
+        allBooksExpected.add(new Book("Book one", "Author one", 2010));
+        allBooksExpected.add(new Book("Book two", "Author two", 2011));
+        allBooksExpected.add(new Book("Book three", "Author three", 2012));
     }
-
 
     @Test
     public void showAllBooksAvailable(){
         BookManagement bookManagement = new BookManagement();
-        List<Book> allBooks = bookManagement.getAllBooksAvailable();
+        List<Item> allBooks = bookManagement.getAllAvailableItens();
         assertEquals(allBooksExpected, allBooks);
     }
 
     @Test
-    public void successfulCheckout(){
+    public void successfulCheckOut(){
         BookManagement bookManagement = new BookManagement();
 
-        String status = bookManagement.checkoutBook("Book one");
+        String status = bookManagement.checkOutItem("Book one");
 
-        assertEquals(status, "Thank you! Enjoy the book");
+        assertEquals(status, "Thank you! Enjoy it");
     }
 
     @Test
-    public void unsuccessfulCheckout(){
+    public void unsuccessfulCheckOut(){
         BookManagement bookManagement = new BookManagement();
 
-        String status = bookManagement.checkoutBook("Book four");
+        String status = bookManagement.checkOutItem("Book four");
 
-        assertEquals(status, "That book is not available");
+        assertEquals(status, "That item is not available");
     }
 
     @Test
     public void successfulReturn(){
         BookManagement bookManagement = new BookManagement();
 
-        String message = bookManagement.returnBook("Book one");
+        String message = bookManagement.returnItem("Book one");
 
-        assertEquals(message, "Thank you for returning the book");
+        assertEquals(message, "Thank you for returning the item");
     }
 
     @Test
     public void unsuccessfulReturn(){
         BookManagement bookManagement = new BookManagement();
 
-        String message = bookManagement.returnBook("Book");
+        String message = bookManagement.returnItem("Book");
 
-        assertEquals(message, "That is not a valid book to return");
+        assertEquals(message, "That is not a valid item to return");
     }
 
     @Test
@@ -73,7 +68,7 @@ public class BookManagementTest {
         BookManagement bookManagement = new BookManagement();
         Book bookExpected = new Book("Book one", "Author one", 2010);
 
-        Book bookReturned = bookManagement.findBook(bookExpected.getName());
+        Item bookReturned = bookManagement.findItem(bookExpected.getName());
 
         assertEquals(bookExpected, bookReturned);
     }
@@ -83,7 +78,7 @@ public class BookManagementTest {
         BookManagement bookManagement = new BookManagement();
         Book bookExpected = new Book("Book", "Author", 2010);
 
-        Book bookReturned = bookManagement.findBook(bookExpected.getName());
+        Item bookReturned = bookManagement.findItem(bookExpected.getName());
 
         assertEquals(null, bookReturned);
     }
